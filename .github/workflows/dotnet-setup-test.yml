@@ -67,8 +67,9 @@ jobs:
 
     - name: Build with dotnet
       run: |
-        dotnet restore BlaBla.Api/BlaBla.Api.sln
-        dotnet build BlaBla.Api/BlaBla.Api.sln --configuration Debug --no-restore
+        ls -la  # List contents of the root directory to verify presence of solution file
+        dotnet restore BlaBla.Api.sln
+        dotnet build BlaBla.Api.sln --configuration Debug --no-restore
      
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
