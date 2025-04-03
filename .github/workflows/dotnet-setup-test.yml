@@ -59,14 +59,14 @@ jobs:
           query-filters:
             - exclude:
                 tags contain: test  
-    - name: Create global.json
-      run: |
-        echo '{
-          "sdk": {
-            "version": "9.0.0",
-            "rollForward": "latestFeature"
-          }
-        }' > global.json
+    # - name: Create global.json
+    #   run: |
+    #     echo '{
+    #       "sdk": {
+    #         "version": "9.0.0",
+    #         "rollForward": "latestFeature"
+    #       }
+    #     }' > global.json
     # Standard build using dotnet CLI
     - name: Setup .NET
       uses: actions/setup-dotnet@v4      
