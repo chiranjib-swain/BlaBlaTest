@@ -67,8 +67,8 @@ jobs:
 
     - name: Build with dotnet
       run: |
-        dotnet restore path/to/your-solution.sln
-        dotnet build path/to/your-solution.sln --configuration Debug --no-restore
+        dotnet restore BlaBla.Api/BlaBla.Api.sln
+        dotnet build BlaBla.Api/BlaBla.Api.sln --configuration Debug --no-restore
      
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
