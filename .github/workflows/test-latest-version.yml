@@ -1,0 +1,35 @@
+name: Test Fallback to latest.version
+
+on:
+  workflow_dispatch:  # Allows manual triggering of the workflow
+
+jobs:
+  test-latest-version:
+    name: Test Fallback to latest.version
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Create global.json to force fallback
+      run: |
+        echo '{
+          "sdk": {
+            "version": "9.0.0",
+            "rollForward": "latestFeature"
+          }
+        }' > global.json
+
+    - name: Run install-dotnet.sh with fallback
+      run: |
+        # Make the install script executable
+        chmod +x ./externals/install-dotnet.sh
+
+        # Run the script with parameters to force fallback to latest.version
+        ./externals/install-dotnet.sh --jsonfile ./global.json --channel 9.0 --verbose
+
+    - name: Verify .NET Installation
+      run: |
+        # Check the installed .NET version
+        dotnet --info
