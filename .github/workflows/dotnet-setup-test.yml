@@ -32,33 +32,33 @@ jobs:
       run: ls -R
 
     # Initializes the CodeQL tools for scanning
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
-      with:
-        languages: ${{ matrix.language }}
-        # Query configuration
-        queries: security-extended,security-and-quality
-        # Configure CodeQL analysis options
-        config: |
-          # Configuration for all languages
-          paths:
-            - src
-          paths-ignore:
-            - '**/obj/**'
-            - '**/bin/**'
-            - '**/tests/**'
-            - '**/*.Test*/**'
-            - '**/*.Tests*/**'
+    # - name: Initialize CodeQL
+    #   uses: github/codeql-action/init@v3
+    #   with:
+    #     languages: ${{ matrix.language }}
+    #     # Query configuration
+    #     queries: security-extended,security-and-quality
+    #     # Configure CodeQL analysis options
+    #     config: |
+    #       # Configuration for all languages
+    #       paths:
+    #         - src
+    #       paths-ignore:
+    #         - '**/obj/**'
+    #         - '**/bin/**'
+    #         - '**/tests/**'
+    #         - '**/*.Test*/**'
+    #         - '**/*.Tests*/**'
          
-          # C# specific configuration
-          csharp:
-            # Enable additional security analysis for database operations
-            database-scrutiny: high
+    #       # C# specific configuration
+    #       csharp:
+    #         # Enable additional security analysis for database operations
+    #         database-scrutiny: high
                  
-          # Don't analyze test code
-          query-filters:
-            - exclude:
-                tags contain: test  
+    #       # Don't analyze test code
+    #       query-filters:
+    #         - exclude:
+    #             tags contain: test  
     # - name: Create global.json
     #   run: |
     #     echo '{
@@ -69,18 +69,18 @@ jobs:
     #     }' > global.json
     # Standard build using dotnet CLI
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4      
+      uses: chiranjib-swain/setup-dotnet@test-bug619      
       with:        
         dotnet-version: '9.0.x'
-        global-json-file: "./global.json"
+        # global-json-file: "./global.json"
 
-    - name: Build with dotnet
-      run: |
-        ls -la  # List contents of the root directory to verify presence of solution file
-        dotnet restore BlaBla.Api.sln
-        dotnet build BlaBla.Api.sln --configuration Debug --no-restore
+    # - name: Build with dotnet
+    #   run: |
+    #     ls -la  # List contents of the root directory to verify presence of solution file
+    #     dotnet restore BlaBla.Api.sln
+    #     dotnet build BlaBla.Api.sln --configuration Debug --no-restore
      
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
-      with:
-        category: "/language:${{matrix.language}}"
+    # - name: Perform CodeQL Analysis
+    #   uses: github/codeql-action/analyze@v3
+    #   with:
+    #     category: "/language:${{matrix.language}}"
