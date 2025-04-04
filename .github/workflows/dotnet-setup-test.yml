@@ -78,7 +78,7 @@ jobs:
     - name: Setup .NET
       uses: chiranjib-swain/setup-dotnet@test-bug-619      
       with:        
-        dotnet-version: '9.0.202'
+        dotnet-version: 'latest'
 
     # - name: Build with dotnet
     #   run: |
