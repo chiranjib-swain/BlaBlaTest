@@ -72,7 +72,7 @@ jobs:
           dotnet --info
           echo -e "\n======================\n"
           echo "create new global.json"
-          dotnet new globaljson --sdk-version 9.0.0 --roll-forward latestFeature --force
+          dotnet new globaljson --sdk-version 9.0.0 --roll-forward disable --force
           cat global.json
     # Standard build using dotnet CLI
     - name: Setup .NET
