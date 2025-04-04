@@ -67,18 +67,18 @@ jobs:
     #         "rollForward": "latestFeature"
     #       }
     #     }' > global.json
-    - name: Create global json
-      run: |
-          dotnet --info
-          echo -e "\n======================\n"
-          echo "create new global.json"
-          dotnet new globaljson --sdk-version 9.0.0 --roll-forward disable --force
-          cat global.json
+    # - name: Create global json
+    #   run: |
+    #       dotnet --info
+    #       echo -e "\n======================\n"
+    #       echo "create new global.json"
+    #       dotnet new globaljson --sdk-version 9.0.0 --roll-forward disable --force
+    #       cat global.json
     # Standard build using dotnet CLI
     - name: Setup .NET
       uses: chiranjib-swain/setup-dotnet@test-bug-619      
       with:        
-        dotnet-version: '9.0.x'
+        dotnet-version: '9.0.202'
 
     # - name: Build with dotnet
     #   run: |
