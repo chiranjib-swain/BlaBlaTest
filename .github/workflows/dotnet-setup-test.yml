@@ -69,7 +69,7 @@ jobs:
     #     }' > global.json
     # Standard build using dotnet CLI
     - name: Setup .NET
-      uses: chiranjib-swain/setup-dotnet@test-bug619      
+      uses: chiranjib-swain/setup-dotnet@test-bug-619      
       with:        
         dotnet-version: '9.0.x'
         # global-json-file: "./global.json"
