@@ -11,6 +11,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Create global.json
+      run: |
+        echo {
+          \"sdk\": {
+            \"version\": \"8.0.14\",
+            \"rollForward\": \"disable\"
+          }
+        } > global.json
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
