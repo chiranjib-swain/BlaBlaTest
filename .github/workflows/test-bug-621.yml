@@ -14,10 +14,10 @@ jobs:
     - name: Create global.json
       run: |
         dotnet --info
-        echo -e "\n======================\n"
-        echo "create new global.json"
+        Write-Output "`n======================`n"
+        Write-Output "create new global.json"
         dotnet new globaljson --sdk-version 8.0.14 --roll-forward disable
-        cat global.json
+        Get-Content global.json
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
