@@ -11,18 +11,18 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Create global.json
-      run: |
-        dotnet --info
-        Write-Output "`n======================`n"
-        Write-Output "create new global.json"
-        dotnet new globaljson --sdk-version 8.0.14 --roll-forward disable
-        Get-Content global.json
-
-    - name: Setup .NET
+    - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0'
+
+    - name: Create global.json
+      run: |
+        dotnet --info
+        echo -e "\n======================\n"
+        echo "create new global.json"
+        dotnet new globaljson --sdk-version 8.0.14 --roll-forward disable
+        cat global.json
 
     - name: Verify .NET version
       run: dotnet --info
