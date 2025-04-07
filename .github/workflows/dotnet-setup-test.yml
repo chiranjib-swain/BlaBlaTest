@@ -23,6 +23,9 @@ jobs:
       matrix:
         language: [ 'csharp' ]
 
+    env:
+      ACTIONS_STEP_DEBUG: true  # Enable debug logging
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -32,61 +35,46 @@ jobs:
       run: ls -R
 
     # Initializes the CodeQL tools for scanning
-    # - name: Initialize CodeQL
-    #   uses: github/codeql-action/init@v3
-    #   with:
-    #     languages: ${{ matrix.language }}
-    #     # Query configuration
-    #     queries: security-extended,security-and-quality
-    #     # Configure CodeQL analysis options
-    #     config: |
-    #       # Configuration for all languages
-    #       paths:
-    #         - src
-    #       paths-ignore:
-    #         - '**/obj/**'
-    #         - '**/bin/**'
-    #         - '**/tests/**'
-    #         - '**/*.Test*/**'
-    #         - '**/*.Tests*/**'
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+        # Query configuration
+        queries: security-extended,security-and-quality
+        # Configure CodeQL analysis options
+        config: |
+          # Configuration for all languages
+          paths:
+            - src
+          paths-ignore:
+            - '**/obj/**'
+            - '**/bin/**'
+            - '**/tests/**'
+            - '**/*.Test*/**'
+            - '**/*.Tests*/**'
          
-    #       # C# specific configuration
-    #       csharp:
-    #         # Enable additional security analysis for database operations
-    #         database-scrutiny: high
+          # C# specific configuration
+          csharp:
+            # Enable additional security analysis for database operations
+            database-scrutiny: high
                  
-    #       # Don't analyze test code
-    #       query-filters:
-    #         - exclude:
-    #             tags contain: test  
-    # - name: Create global.json
-    #   run: |
-    #     echo '{
-    #       "sdk": {
-    #         "version": "9.0.0",
-    #         "rollForward": "latestFeature"
-    #       }
-    #     }' > global.json
-    # - name: Create global json
-    #   run: |
-    #       dotnet --info
-    #       echo -e "\n======================\n"
-    #       echo "create new global.json"
-    #       dotnet new globaljson --sdk-version 9.0.0 --roll-forward disable --force
-    #       cat global.json
+          # Don't analyze test code
+          query-filters:
+            - exclude:
+                tags contain: test    
     # Standard build using dotnet CLI
     - name: Setup .NET
-      uses: chiranjib-swain/setup-dotnet@test-bug-619      
+      uses: actions/setup-dotnet@v4      
       with:        
-        dotnet-version: 'latest'
+        dotnet-version: '9.0.x'
 
-    # - name: Build with dotnet
-    #   run: |
-    #     ls -la  # List contents of the root directory to verify presence of solution file
-    #     dotnet restore BlaBla.Api.sln
-    #     dotnet build BlaBla.Api.sln --configuration Debug --no-restore
+    - name: Build with dotnet
+      run: |
+        ls -la  # List contents of the root directory to verify presence of solution file
+        dotnet restore BlaBla.Api.sln
+        dotnet build BlaBla.Api.sln --configuration Debug --no-restore
      
-    # - name: Perform CodeQL Analysis
-    #   uses: github/codeql-action/analyze@v3
-    #   with:
-    #     category: "/language:${{matrix.language}}"
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:${{matrix.language}}"
