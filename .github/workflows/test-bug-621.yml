@@ -1,0 +1,20 @@
+name: Test Setup .NET Action
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-dotnet-setup:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.x'
+
+    - name: Verify .NET version
+      run: dotnet --info
