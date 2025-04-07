@@ -13,17 +13,16 @@ jobs:
 
     - name: Create global.json
       run: |
-        echo {
-          \"sdk\": {
-            \"version\": \"8.0.14\",
-            \"rollForward\": \"disable\"
-          }
-        } > global.json
+        dotnet --info
+        echo -e "\n======================\n"
+        echo "create new global.json"
+        dotnet new globaljson --sdk-version 8.0.14 --roll-forward disable
+        cat global.json
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.x'
+        dotnet-version: '8.0'
 
     - name: Verify .NET version
       run: dotnet --info
